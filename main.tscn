@@ -1,0 +1,127 @@
+[gd_scene format=3 uid="uid://d0cyv5eu6qmx0"]
+
+[ext_resource type="Script" uid="uid://bjhpfix0g08dq" path="res://control.gd" id="1_0xm2m"]
+[ext_resource type="Texture2D" uid="uid://d0qugnnba8epa" path="res://assets/specs.png" id="1_ig7tw"]
+[ext_resource type="Texture2D" uid="uid://r787ycuba5qk" path="res://assets/head_2.png" id="3_272bh"]
+[ext_resource type="Texture2D" uid="uid://b45n3p65rljpg" path="res://assets/guide.png" id="3_dg77c"]
+[ext_resource type="Texture2D" uid="uid://3p5450na6vq4" path="res://assets/body.png" id="3_h2yge"]
+[ext_resource type="Texture2D" uid="uid://tch5tuat7whw" path="res://assets/hand_2.png" id="4_5vw27"]
+[ext_resource type="Script" uid="uid://dpqe5ylco7p2p" path="res://head.gd" id="4_efxa6"]
+[ext_resource type="Texture2D" uid="uid://dtj3a3rcn8ltl" path="res://assets/core_2.png" id="5_kek77"]
+[ext_resource type="Texture2D" uid="uid://bs36dn613jt2f" path="res://assets/leg_2.png" id="6_4c57u"]
+[ext_resource type="Script" uid="uid://d4iwjnwb1leag" path="res://hand.gd" id="6_dg77c"]
+[ext_resource type="Script" uid="uid://bvqav6aamsuwh" path="res://core.gd" id="8_ycdy4"]
+[ext_resource type="Script" uid="uid://byhry5mcxcqor" path="res://leg.gd" id="10_w48qg"]
+
+[node name="Main" type="Node2D" unique_id=1551789274]
+
+[node name="Control" type="Control" parent="." unique_id=1474857187]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_0xm2m")
+
+[node name="Background" type="TextureRect" parent="Control" unique_id=308197704]
+layout_mode = 0
+offset_right = 2560.0
+offset_bottom = 1440.0
+scale = Vector2(0.45, 0.45)
+texture = ExtResource("3_h2yge")
+
+[node name="Guide" type="TextureRect" parent="Control" unique_id=846119091]
+layout_mode = 0
+offset_right = 2560.0
+offset_bottom = 1440.0
+scale = Vector2(0.45, 0.45)
+texture = ExtResource("3_dg77c")
+
+[node name="Head" type="TextureRect" parent="Control" unique_id=1141217120]
+layout_mode = 0
+offset_right = 2560.0
+offset_bottom = 1440.0
+scale = Vector2(0.45, 0.45)
+texture = ExtResource("3_272bh")
+script = ExtResource("4_efxa6")
+
+[node name="Hand" type="TextureRect" parent="Control" unique_id=2016814584]
+layout_mode = 0
+offset_right = 2560.0
+offset_bottom = 1440.0
+scale = Vector2(0.45, 0.45)
+texture = ExtResource("4_5vw27")
+script = ExtResource("6_dg77c")
+
+[node name="Core" type="TextureRect" parent="Control" unique_id=1813874078]
+layout_mode = 0
+offset_right = 2560.0
+offset_bottom = 1440.0
+scale = Vector2(0.45, 0.45)
+texture = ExtResource("5_kek77")
+script = ExtResource("8_ycdy4")
+
+[node name="Leg" type="TextureRect" parent="Control" unique_id=949040387]
+layout_mode = 0
+offset_right = 2560.0
+offset_bottom = 1440.0
+scale = Vector2(0.45, 0.45)
+texture = ExtResource("6_4c57u")
+script = ExtResource("10_w48qg")
+
+[node name="Specs" type="TextureRect" parent="Control" unique_id=381005781]
+layout_mode = 0
+offset_right = 2560.0
+offset_bottom = 1440.0
+scale = Vector2(0.45, 0.45)
+texture = ExtResource("1_ig7tw")
+
+[node name="BtnHand" type="Button" parent="Control" unique_id=1683625011]
+layout_mode = 0
+offset_left = 258.0
+offset_top = 346.0
+offset_right = 333.0
+offset_bottom = 420.0
+theme_override_font_sizes/font_size = 32
+text = "000"
+
+[node name="BtnCore" type="Button" parent="Control" unique_id=1980965265]
+layout_mode = 0
+offset_left = 727.0
+offset_top = 286.0
+offset_right = 802.0
+offset_bottom = 360.0
+theme_override_font_sizes/font_size = 32
+text = "000"
+
+[node name="BtnInterface" type="Button" parent="Control" unique_id=2064367403]
+layout_mode = 0
+offset_left = 442.0
+offset_top = 269.0
+offset_right = 517.0
+offset_bottom = 343.0
+theme_override_font_sizes/font_size = 32
+text = "000"
+
+[node name="BtnProcessor" type="Button" parent="Control" unique_id=106191066]
+layout_mode = 0
+offset_left = 816.0
+offset_top = 48.0
+offset_right = 891.0
+offset_bottom = 122.0
+theme_override_font_sizes/font_size = 32
+text = "000"
+
+[node name="BtnLeg" type="Button" parent="Control" unique_id=255194524]
+layout_mode = 0
+offset_left = 381.0
+offset_top = 451.0
+offset_right = 456.0
+offset_bottom = 525.0
+theme_override_font_sizes/font_size = 32
+text = "000"
+
+[connection signal="pressed" from="Control/BtnHand" to="Control" method="_on_btn_hand_pressed"]
+[connection signal="pressed" from="Control/BtnCore" to="Control" method="_on_btn_core_pressed"]
+[connection signal="pressed" from="Control/BtnInterface" to="Control" method="_on_btn_interface_pressed"]
+[connection signal="pressed" from="Control/BtnProcessor" to="Control" method="_on_btn_processor_pressed"]
+[connection signal="pressed" from="Control/BtnLeg" to="Control" method="_on_btn_leg_pressed"]

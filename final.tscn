@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://de3kstb60xomw"]
+
+[ext_resource type="Texture2D" uid="uid://c274e7x1somcv" path="res://assets/ed_1.png" id="1_h0aww"]
+[ext_resource type="Script" uid="uid://dgplg5mhb3apx" path="res://final_control.gd" id="1_tvybu"]
+
+[node name="Final" type="Node2D" unique_id=1513514345]
+
+[node name="Control" type="Control" parent="." unique_id=1110292215]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_tvybu")
+
+[node name="Background" type="TextureRect" parent="Control" unique_id=1898410870]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.45, 0.45)
+texture = ExtResource("1_h0aww")
+
+[node name="BtnPlayAgain" type="Button" parent="Control" unique_id=540923246]
+layout_mode = 0
+offset_left = 905.0
+offset_top = 571.0
+offset_right = 1134.0
+offset_bottom = 635.0
+theme_override_font_sizes/font_size = 32
+text = "Play again"
+
+[connection signal="pressed" from="Control/BtnPlayAgain" to="Control" method="_on_btn_play_again_pressed"]
