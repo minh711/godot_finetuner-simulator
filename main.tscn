@@ -120,8 +120,59 @@ offset_bottom = 525.0
 theme_override_font_sizes/font_size = 32
 text = "000"
 
+[node name="Message" type="Label" parent="Control" unique_id=847177527]
+layout_mode = 0
+offset_left = -1.0
+offset_top = 569.0
+offset_right = 1151.0
+offset_bottom = 648.1111
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.8373742, 0.65945405, 0, 1)
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 32
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="UnlockedEndings" type="Label" parent="Control" unique_id=1353709844]
+layout_mode = 0
+offset_left = 57.0
+offset_top = 433.0
+offset_right = 1209.0
+offset_bottom = 526.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.5692146, 0.66484, 1, 1)
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 32
+text = "Unlocked
+endings: 0/7"
+vertical_alignment = 1
+
+[node name="Score" type="Label" parent="Control" unique_id=192033848]
+layout_mode = 0
+offset_left = -1.0
+offset_top = -2.0
+offset_right = 1128.0
+offset_bottom = 77.111084
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.9045926, 0.48665977, 1, 1)
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 32
+text = "Score: 100"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="BtnPlayAgain" type="Button" parent="Control" unique_id=1133961481]
+layout_mode = 0
+offset_left = 894.0
+offset_top = 165.0
+offset_right = 1123.0
+offset_bottom = 229.0
+theme_override_font_sizes/font_size = 32
+text = "Play again"
+
 [connection signal="pressed" from="Control/BtnHand" to="Control" method="_on_btn_hand_pressed"]
 [connection signal="pressed" from="Control/BtnCore" to="Control" method="_on_btn_core_pressed"]
 [connection signal="pressed" from="Control/BtnInterface" to="Control" method="_on_btn_interface_pressed"]
 [connection signal="pressed" from="Control/BtnProcessor" to="Control" method="_on_btn_processor_pressed"]
 [connection signal="pressed" from="Control/BtnLeg" to="Control" method="_on_btn_leg_pressed"]
+[connection signal="pressed" from="Control/BtnPlayAgain" to="Control" method="_on_btn_play_again_pressed"]
