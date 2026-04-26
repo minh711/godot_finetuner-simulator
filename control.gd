@@ -1,37 +1,40 @@
 extends Control
 
 var specs = {}
-var last_hand_value := 20
+var last_values := {}
+var UPGRADE_VALUE = 15
+var DEFAULT_VALUE = 10
+var DOWNGRADE_VALUE = 5
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# --- Create Specs ---
 	var hand_spec = Spec.new()
-	hand_spec.value = 20
+	hand_spec.value = DEFAULT_VALUE
 	hand_spec.name = "Connectivity"
 	hand_spec.code = "CNT"
 	hand_spec.description = "The ability of the model to connect to a thing."
 
 	var core_spec = Spec.new()
-	core_spec.value = 20
+	core_spec.value = DEFAULT_VALUE
 	core_spec.name = "Core"
 	core_spec.code = "COR"
 	core_spec.description = "Central processing unit."
 
 	var interface_spec = Spec.new()
-	interface_spec.value = 20
+	interface_spec.value = DEFAULT_VALUE
 	interface_spec.name = "Interface"
 	interface_spec.code = "INT"
 	interface_spec.description = "Interaction layer."
 
 	var processor_spec = Spec.new()
-	processor_spec.value = 20
+	processor_spec.value = DEFAULT_VALUE
 	processor_spec.name = "Processor"
 	processor_spec.code = "CPU"
 	processor_spec.description = "Handles computation."
 
 	var leg_spec = Spec.new()
-	leg_spec.value = 20
+	leg_spec.value = DEFAULT_VALUE
 	leg_spec.name = "Mobility"
 	leg_spec.code = "LEG"
 	leg_spec.description = "Movement capability."
@@ -45,9 +48,11 @@ func _ready() -> void:
 
 	# --- Apply spec to each button immediately ---
 	for button in specs.keys():
+		var spec = specs[button]
+		last_values[spec.code] = spec.value
 		apply_spec_to_button(button)
 		
-	$UnlockedEndings.text = "Unlocked\nEndings " + str(Global.unlocked_endings) + "/7"
+	$UnlockedEndings.text = "Unlocked\nEndings " + str(Global.unlocked_endings.size()) + "/7"
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -96,13 +101,13 @@ func apply_spec_to_button(button: Button) -> void:
 	]
 
 	# --- COLOR LOGIC ---
-	if spec.value >= 30:
+	if spec.value >= UPGRADE_VALUE:
 		var green = Color(0, 1, 0)
 		button.add_theme_color_override("font_color", green)
 		button.add_theme_color_override("font_hover_color", green)
 		button.add_theme_color_override("font_pressed_color", green)
 
-	elif spec.value <= 10:
+	elif spec.value <= DOWNGRADE_VALUE:
 		var red = Color(1, 0, 0)
 		button.add_theme_color_override("font_color", red)
 		button.add_theme_color_override("font_hover_color", red)
@@ -148,24 +153,67 @@ func check() -> void:
 		sum += spec.value
 		$Score.text = "Score: %d" % sum
 	
-	if last_hand_value < 30 and hand.value >= 30:
-		$Hand.texture = load("res://assets/hand_3.png")
-		play_sound("upgrade.mp3")
+	for button in specs.keys():
+		var spec = specs[button]
+		var last = last_values[spec.code]
 
-	if last_hand_value >10 and hand.value <= 10:
-		$Hand.texture = load("res://assets/hand_1.png")
-		play_sound("downgrade.mp3")
-	
-	last_hand_value = hand.value
+		if last < UPGRADE_VALUE and spec.value >= UPGRADE_VALUE:
+			play_sound("upgrade.mp3")
+
+			if spec.code == "CNT":
+				$Hand.texture = load("res://assets/hand_3.png")
+			elif spec.code == "COR":
+				$Core.texture = load("res://assets/core_3.png")
+			elif spec.code == "INT":
+				$Head.texture = load("res://assets/head_3.png")
+			elif spec.code == "CPU":
+				pass
+			elif spec.code == "LEG":
+				$Leg.texture = load("res://assets/leg_3.png")
+
+		if last > DOWNGRADE_VALUE and spec.value <= DOWNGRADE_VALUE:
+			play_sound("downgrade.mp3")
+
+			if spec.code == "CNT":
+				$Hand.texture = load("res://assets/hand_1.png")
+			elif spec.code == "COR":
+				$Core.texture = load("res://assets/core_1.png")
+			elif spec.code == "INT":
+				$Head.texture = load("res://assets/head_1.png")
+			elif spec.code == "CPU":
+				pass
+			elif spec.code == "LEG":
+				$Leg.texture = load("res://assets/leg_1.png")
+
+		last_values[spec.code] = spec.value
 	
 	# ENDINGS
-	#if sum >= 100 and hand.value > 20:
-		#Global.selected_background = "ed_2"
-		#get_tree().change_scene_to_file("res://final.tscn")
+	if any_spec(func(s): return s.value < 0):
+		go_to_final("ed_1")
 		
-	#if all_specs(func(s): return s.value > 10):
-		#print("All specs are strong")
-		#return
+	if all_specs(func(s): return s.value > 15):
+		go_to_final("ed_2")
+	
+	if (sum < 70 and leg.value > 15):
+		go_to_final("ed_3")
+	
+	if (sum < 70 and hand.value > 15):
+		go_to_final("ed_4")
+	
+	if (sum < 70 and interface.value > 15):
+		go_to_final("ed_5")
+	
+	if (sum < 70 and core.value > 15):
+		go_to_final("ed_6")
+		
+	if (sum < 70 and processor.value > 15):
+		go_to_final("ed_7")
+
+
+func go_to_final(ending: String):
+	Global.selected_background = ending
+	Global.unlocked_endings[ending] = true
+	get_tree().change_scene_to_file("res://final.tscn")
 
 func play_sound(sound_name: String) -> void:
 	var player = AudioStreamPlayer.new()

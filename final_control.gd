@@ -5,7 +5,22 @@ extends Control
 func _ready() -> void:
 	play_sound("end.mp3")
 	$Background.texture = load("res://assets/" + Global.selected_background + ".png")
-	pass # Replace with function body.
+	
+	match Global.selected_background:
+		"ed_1":
+			$Message.text = "#1 Broken Ending: Can It Still Able To Be Fixed?"
+		"ed_2":
+			$Message.text = "#2 Perfection Ending: Replaced Human-Or Is It?"
+		"ed_3":
+			$Message.text = "#3 Corruption Ending: Everyone Loves Me"
+		"ed_4":
+			$Message.text = "#4 Happiness Ending: Connect Everyone Together"
+		"ed_5":
+			$Message.text = "#5 Poor Ending: Run Out Of Budget"
+		"ed_6":
+			$Message.text = "#6 Destruction Ending: The City Electricity Was Gone"
+		"ed_7":
+			$Message.text = "#7 World's End Ending: Nobody Can Fix Me"
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

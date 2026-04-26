@@ -24,6 +24,11 @@ Music="*uid://b3y8xyt20qndx"
 
 window/stretch/mode="canvas_items"
 
+[gui]
+
+timers/tooltip_delay_sec=0.0
+timers/tooltip_delay_sec.editor_hint=0.05
+
 [physics]
 
 3d/physics_engine="Jolt Physics"
